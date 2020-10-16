@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import {getRepository} from 'typeorm';
 import Orphanage from '../models/Orphanage';
 import OrphanageView from '../views/orphanages_view';
+import * as Yup from 'yup';
 
 export default {
    async show(req: Request, res: Response){
@@ -21,7 +22,6 @@ export default {
 
     async create(req: Request, res: Response){
         const {
-            id,
             name,
             latitude,
             longitude,
@@ -36,19 +36,39 @@ export default {
             return {path: image.filename}
         })
 
-            const orphanagesRepository = getRepository(Orphanage);
+            const data = {
+            name,
+            latitude,
+            longitude,
+            about,
+            instructions,
+            opening_hours,
+            open_on_weekends,
+            images
+            };
             
-            const orphanage = orphanagesRepository.create({
-                id,
-                name,
-                latitude,
-                longitude,
-                about,
-                instructions,
-                opening_hours,
-                open_on_weekends,
-                images
+            const orphanagesRepository = getRepository(Orphanage);
+            const schema = Yup.object().shape({
+            name:Yup.string().required("Nome é obrigatório"),
+            latitude:Yup.number().required("Latitude é obrigatório"),
+            longitude:Yup.number().required("Longitude é obrigatório"),
+            about:Yup.string().required("O campo Sobre é obrigatório").max(308),
+            instructions:Yup.string().required("O campo Instruções é obrigatório"),
+            opening_hours:Yup.string().required("Horario de funcionamento é obrigatório"),
+            open_on_weekends:Yup.boolean().required("Campo de funcionamento aos finais de semana é obrigatório"),
+            images: Yup.array(
+                Yup.object().shape({
+                path: Yup.string().required()
             })
+            )
+            })
+
+
+            await schema.validate(data,{
+                abortEarly:false,
+            });
+
+            const orphanage = orphanagesRepository.create(data)
         
             await orphanagesRepository.save(orphanage);
         
