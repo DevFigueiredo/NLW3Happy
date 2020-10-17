@@ -27,12 +27,12 @@ return (
 
     <div>
         <Map 
-        center={[-23.6395428, -45.4215668]}
+        center={[-122.4241, -45.4215668]}
         zoom={15}
-        style={{width: '100%', height: '100%'}}
+        style={{width: '100vw', height: '100vw'}}
         >
+         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/y/-23.7215727/@2x?access_token=pk.eyJ1IjoiZGV2ZmlndWVpcmVkbyIsImEiOiJja2c3N25mMWIwNG1oMnRrY2ltbm9rY3JpIn0.NgfeFvlASZytFyW2LoglCg`} />
          {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */}
-         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/{y}/{y}/{z}/@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
 
          </Map>        
              </div>
