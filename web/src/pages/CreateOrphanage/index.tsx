@@ -125,10 +125,6 @@ function handleSelectImages(event: ChangeEvent<HTMLInputElement>){
               }
             </Map>
             <div className="input-block">
-              <label htmlFor="address">Endereço</label>
-              <input id="address" />
-            </div>
-            <div className="input-block">
               <label htmlFor="instructions">Instruções</label>
               <textarea id="instructions" value={instructions} onChange={event=>{setInstructions(event.target.value)}} />
             </div>

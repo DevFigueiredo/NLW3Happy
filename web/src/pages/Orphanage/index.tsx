@@ -21,6 +21,7 @@ interface Orphanage{
   opening_hours: string;
   open_on_weekends: boolean;
   images:Array<{
+    id: number;
     url: string;
   }>;
 }
@@ -33,6 +34,7 @@ export default function Orphanage() {
 const params = useParams<OrphanageParams>();
 
 const [orphanage, SetOrphanage] = useState<Orphanage>();
+const [activeImageIndex,setActiveImageIndex ] = useState(0);
 
 useEffect(()=>{
   api.get(`orphanages/${params.id}`).then(response=>{
@@ -53,11 +55,15 @@ useEffect(()=>{
 
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[0].url} alt="Lar das meninas" />
+          <img src={orphanage.images[activeImageIndex].url} alt="Lar das meninas" />
 
           <div className="images">
-           {orphanage.images.map((image=>{return(
-            <button type="button">
+           {orphanage.images.map(((image, index)=>{return(
+            <button key={image.id} 
+            type="button"
+            className={activeImageIndex == index ? "active" : ""}
+            onClick={()=>setActiveImageIndex(index)}
+            >
               <img src={image.url} alt="Lar das meninas" />
             </button>
            )}))}
@@ -83,11 +89,13 @@ useEffect(()=>{
                 <TileLayer 
                   url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
-                <Marker interactive={false} icon={happyMapIcon} position={[-27.2092052,-49.6401092]} />
+                <Marker interactive={false} icon={happyMapIcon} position={[orphanage.latitude,orphanage.longitude]} />
               </Map>
 
               <footer>
-                <Link to="">Ver rotas Google Maps</Link>
+                <a rel="noopener noreferrer" target="_blank" href={`http://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>
+                  Ver rotas Google Maps
+                  </a>
               </footer>
             </div>
 
@@ -101,11 +109,13 @@ useEffect(()=>{
                 <FiClock size={32} color="#15B6D6" />
                 {orphanage.opening_hours}
               </div>
-              <div className="open-on-weekends">
-                <FiInfo size={32} color="#39CC83" />
-                
-                Atendemos <br />
-                fim de semana
+              <div className={
+                orphanage.open_on_weekends===false
+                ? "open-on-weekends dont-open": "open-on-weekends"}>
+                <FiInfo size={32} />
+                {
+                orphanage.open_on_weekends===false
+                ? "Não atendemos fins de semana": "Atendemos aos fins de semana"}
               </div>
             </div>
 
