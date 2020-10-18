@@ -3,11 +3,22 @@ import {Link} from 'react-router-dom';
 
 import MapMarker from '../../images/LogoIcon.svg';
 import {FiPlus} from 'react-icons/fi'
+import L from 'leaflet';
+
 
 import './styles.css';
 
-import { Map, TileLayer } from 'react-leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+
+const happyMapIcon = L.icon({
+    iconUrl: MapMarker,
+  
+    iconSize: [58, 68],
+    iconAnchor: [29, 68],
+    popupAnchor: [0, -60]
+  })
+
 
 function OrpahangesMap(){
 return (
@@ -25,19 +36,22 @@ return (
         </footer>
     </aside>
 
-    <div>
-        <Map 
-        center={[-122.4241, -45.4215668]}
-        zoom={15}
-        style={{width: '100vw', height: '100vw'}}
-        >
-         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/y/-23.7215727/@2x?access_token=pk.eyJ1IjoiZGV2ZmlndWVpcmVkbyIsImEiOiJja2c3N25mMWIwNG1oMnRrY2ltbm9rY3JpIn0.NgfeFvlASZytFyW2LoglCg`} />
-         {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */}
-
-         </Map>        
+    <div style={{ width: '100%' , background: 'red', display: 'flex'}}>
+             <Map 
+                center={[-27.2092052,-49.6401092]} 
+                zoom={16} 
+                style={{ width: '100%'}}
+               
+              >
+                <TileLayer 
+                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                />
+                <Marker interactive={false} icon={happyMapIcon} position={[-27.2092052,-49.6401092]} />
+               </Map>
+   
              </div>
 
-    <Link to="" className="create-orphanage">
+    <Link to="orphanage/create" className="create-orphanage">
         <FiPlus size={32} color="#FFF"/>
     </Link>
     </div>
