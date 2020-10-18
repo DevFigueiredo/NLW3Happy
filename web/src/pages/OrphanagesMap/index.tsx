@@ -43,11 +43,11 @@ return (
         </footer>
     </aside>
 
-    <div style={{ width: '100%' , background: 'red', display: 'flex'}}>
+    <div id="map">
              <Map 
                 center={[-23.7215727,-45.440392]} 
                 zoom={16} 
-                style={{ width: '100%'}}
+                style={{ width: '100%', height: '100%', display: 'flex', position: 'fixed'}}
                
               >
                 <TileLayer 
@@ -65,12 +65,12 @@ return (
                   </Marker>)
                 })}
                </Map>
-   
+
+               <Link to="orphanage/create" className="create-orphanage">
+        <FiPlus size={32} color="#FFF"/>
+    </Link>   
              </div>
 
-    <Link to="orphanage/create" className="create-orphanage">
-        <FiPlus size={32} color="#FFF"/>
-    </Link>
     </div>
 
 );

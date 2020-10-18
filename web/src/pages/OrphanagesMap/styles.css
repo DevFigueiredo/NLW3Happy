@@ -107,3 +107,9 @@
 #page-map .map-popup .leaflet-popup-tip-container{
 display: none;
 }
+
+#map{
+    width: 100%;
+    display: flex;
+    position: relative;
+}
