@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import mapMarkerImg from '../../images/LogoIcon.svg';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -11,8 +11,9 @@ export default function Sidebar() {
     return(     
     <div id="page-orphanage">
       <aside>
+        <Link to="/">
         <img src={mapMarkerImg} alt="Happy" />
-
+        </Link>
         <footer>
           <button type="button" onClick={goBack}>
             <FiArrowLeft size={24} color="#FFF" />
