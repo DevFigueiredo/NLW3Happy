@@ -4,7 +4,7 @@ exports.default = {
     render: function (image) {
         return {
             id: image.id,
-            url: "http://192.168.1.4:3333/uploads/" + image.path
+            url: "https://heroku-nlw-happy.herokuapp.com/uploads/" + image.path
         };
     },
     renderMany: function (images) {
