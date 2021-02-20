@@ -1,1 +1,1 @@
-backend: D:\\Documents\\Projects\\NLW3Happy\\~backend
+web: yarn --cwd /backend/dist/ start
