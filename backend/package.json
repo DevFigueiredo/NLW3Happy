@@ -5,12 +5,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "build": "tsc --target ES5 --experimentalDecorators --emitDecoratorMetadata"
   },
   "dependencies": {
     "@types/cors": "^2.8.8",
     "@types/yup": "^0.29.8",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "multer": "^1.4.2",
